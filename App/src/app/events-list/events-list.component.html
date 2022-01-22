@@ -1,0 +1,32 @@
+<div class="container mt-5">
+  <div class="row">
+    <a
+      [routerLink]="['/event/' + eve.Id]"
+      routerLinkActive="router-link-active"
+      href="#"
+      class="col-xs-12 col-sm-4"
+      *ngFor="let eve of eventsList; let i = index; let last = last"
+    >
+      <div class="card" style="width: 18rem;">
+        <img
+          src="../../assets/blockchain tutorial.jfif"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ eve.name }}</h5>
+          <p class="card-text">
+            {{ eve.location }}
+          </p>
+          <p class="card-text">
+            {{ eve.startDate | date }}
+          </p>
+        </div>
+        <div class="card-body">
+          <a href="#" class="card-link">{{ eve.ticketPrice }} ETH</a>
+          <a href="#" class="card-link">Get Ticket</a>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

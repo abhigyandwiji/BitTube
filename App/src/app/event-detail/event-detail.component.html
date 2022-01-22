@@ -1,0 +1,167 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <span> {{ eventDetail.name }}</span>
+        </div>
+        balance = {{ contractBalance }}
+        <div class="card-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-8">
+                <img
+                  src="
+                    ../../assets/blockchain tutorial.jfif
+                  "
+                  class="card-img-top"
+                  alt="..."
+                />
+              </div>
+              <div class="col-4">
+                <div class="image">
+                  <input
+                    type="file"
+                    #eventImage
+                    (change)="imageSelected($event)"
+                    class="image-input"
+                    id="image"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <ul class="list-group col-12">
+                <li class="list-group-item ">
+                  <strong> Created By: </strong>
+                  <span> {{ eventDetail.owner }}</span>
+                </li>
+                <li class="list-group-item ">
+                  <strong> from: </strong>
+                  <span> {{ eventDetail?.startDate?.toString() | date }}</span>
+                </li>
+                <li class="list-group-item">
+                  <strong>To</strong>
+                  <span> {{ eventDetail?.endDate?.toString() | date }}</span>
+                </li>
+                <li class="list-group-item">
+                  <strong>Location</strong>
+                  <span> {{ eventDetail.location }}</span>
+                </li>
+                <li class="list-group-item">
+                  <strong>Ticket Price</strong>
+                  <span> {{ eventDetail.ticketPrice }} Ether </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="jumbotron mt-3">
+            {{ eventDetail.description }}
+          </div>
+
+          <form [formGroup]="bookingForm" class="mt-5" (ngSubmit)="getTicket()">
+            <div class="row">
+              <input
+                type="number"
+                #quantity
+                name="ticketQuantity"
+                id="ticketQuantity"
+                formControlName="quantity"
+                class="form-control col-2"
+                placeholder="Quantity"
+                min="1"
+                max="5"
+              />
+
+              <button
+                (click)="getTicket()"
+                href="#"
+                type="submit"
+                class="btn btn-warning btn-lg "
+                [disabled]="!quantity"
+              >
+                Get Ticket
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="row">
+          <div class="col-6">
+            <button
+              *ngIf="eventDetail.owner === currentAccount"
+              type="button"
+              class="btn btn-success btn-success btn-lg my-2 mx-2"
+              (click)="collectPayment()"
+            >
+              Collect Payment
+            </button>
+          </div>
+          <div class="col-6">
+            <button
+              type="button"
+              class="btn btn-success btn-danger btn-lg my-2 mx-2"
+              (click)="cancelEvent()"
+              *ngIf="eventDetail.owner == currentAccount"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+
+        <div class="card-header bg-info">
+          Your Tickets
+        </div>
+        <div class="card-body">
+          <p class="card-text"></p>
+          <div
+            class="alert alert-info"
+            role="alert"
+            *ngIf="!userTickets.length"
+          >
+            No Tickets Purchase For Event
+          </div>
+          <ul class="list-group container" *ngIf="userTickets.length">
+            <li
+              class="list-group-item d-flex justify-content-between align-items-center"
+              *ngFor="let ticket of userTickets; let i = index; let last = last"
+            >
+              <qr-code [value]="generateCode()" [size]="150"></qr-code>
+              <div
+                class="modal fade bd-example-modal-sm"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="mySmallModalLabel"
+                aria-hidden="true"
+                id="myModal"
+              ></div>
+
+              <input type="text" class="form-control" #transferAddress />
+
+              <button
+                (click)="transferTo(transferAddress.value, ticket)"
+                data-toggle="modal"
+                [disabled]="transferAddress.value"
+                class="badge badge-info badge-pill"
+              >
+                Transfer
+              </button>
+
+              <button
+                (click)="getRefund(ticket)"
+                class="badge badge-danger badge-pill"
+              >
+                Get Refund
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

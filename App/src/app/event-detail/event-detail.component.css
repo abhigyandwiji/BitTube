@@ -1,0 +1,8 @@
+.ticket-box {
+  float: left;
+  width: 50%;
+}
+
+strong {
+  margin-right: 3em !important;
+}

@@ -1,0 +1,141 @@
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="eventname">Event Name</label>
+          <input
+            type="text"
+            formControlName="eventName"
+            class="form-control"
+            id="eventname"
+            placeholder="Event Name"
+          />
+          <div *ngIf="getControl('eventName').errors" class="text-danger">
+            <div *ngIf="getControl('eventName').errors['required']">
+              *
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="form-group">
+          <label for="Location">Location</label>
+          <input
+            formControlName="location"
+            type="text"
+            class="form-control"
+            id="Location"
+            placeholder="Location"
+          />
+          <div *ngIf="getControl('location').errors" class="text-danger">
+            <div *ngIf="getControl('location').errors['required']">
+              *
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label for="availableTicket">Total Ticket</label>
+          <input
+            formControlName="availableTicket"
+            type="number"
+            min="1"
+            class="form-control"
+            id="availableTicket"
+            placeholder="Total Ticket"
+          />
+          <div *ngIf="getControl('availableTicket').errors" class="text-danger">
+            <div *ngIf="getControl('availableTicket').errors['required']">
+              Available tickets is required
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label for="ticketPrice">Ticket price</label>
+          <input
+            formControlName="ticketPrice"
+            type="number"
+            min="1"
+            class="form-control"
+            id="ticketPrice"
+            placeholder="Ticket price"
+          />
+          <div *ngIf="getControl('ticketPrice').errors" class="text-danger">
+            <div *ngIf="getControl('ticketPrice').errors['required']">
+              *
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label for="startDate">Start Date</label>
+          <input
+            type="date"
+            formControlName="startDate"
+            class="form-control"
+            id="startDate"
+            placeholder="Start Date"
+          />
+          <div *ngIf="getControl('startDate').errors" class="text-danger">
+            <div *ngIf="getControl('startDate').errors['required']">
+              *
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label for="endDate">End Date</label>
+          <input
+            formControlName="endDate"
+            type="date"
+            class="form-control"
+            id="endDate"
+            placeholder="End Date"
+          />
+          <div *ngIf="getControl('endDate').errors" class="text-danger">
+            <div *ngIf="getControl('endDate').errors['required']">
+              *
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            class="form-control"
+            formControlName="description"
+            id="description"
+            placeholder="Description"
+          >
+          </textarea>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="image">
+          <input
+            type="file"
+            #eventImage
+            formControlName="image"
+            (change)="imageSelected($event)"
+            class="image-input"
+            id="image"
+          />
+        </div>
+      </div>
+    </div>
+    <button
+      type="submit"
+      [disabled]="eventForm.invalid"
+      class="btn btn-success btn-lg btn-block mt-5 mb-3"
+    >
+      Create Event
+    </button>
+  </div>
+</form>
